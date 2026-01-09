@@ -1,63 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H₂0</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <title>EFD | Receipt Verification</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="shortcut icon" href="images/logo.png" type="image/png">
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:#ebebeb;
+      font-family:"Segoe UI", Tahoma, Arial, sans-serif;
+      color:#404040;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding-top:66px;
+      line-height:1.35;
+    }
+
+    .topbar{
+      position:fixed;
+      left:0;right:0;top:0;
+      height:56px;
+      background:#FDEE02;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      z-index:1000;
+    }
+    .topbar a{
+      color:#202020;
+      text-decoration:none; /* no underline */
+      font-weight:700;
+    }
+    .topbar h4{
+      margin:0;
+      font-size:15px;
+      letter-spacing:0.2px;
+    }
+
+    .page{max-width:960px;margin:0 auto;padding:18px 12px}
+    .receipt{
+      max-width:540px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid #d8d8d8;
+      border-radius:3px;
+      overflow:hidden;
+      box-shadow:0 1px 2px rgba(0,0,0,0.03);
+    }
+    .panel{padding:18px 22px}
+
+    .legal-title{text-align:center;font-weight:600;color:#404040;margin-bottom:8px;font-size:13px}
+    .logo{display:flex;justify-content:center;margin-bottom:6px}
+    .logo img{width:92px;height:92px;object-fit:contain}
+    .business{text-align:center;font-weight:800;font-size:18px;margin-bottom:8px;letter-spacing:0.2px;color:#404040}
+    .center-meta{font-size:13px;text-align:center;margin-bottom:8px;color:#404040}
+    hr.dotted{border:none;border-top:1px dotted #bdbdbd;margin:10px 0}
+
+    /* INFO SECTIONS */
+    .info{display:block;margin:4px 0;font-size:13px;color:#404040}
+    .info-row{
+      display:flex;
+      align-items:center;
+      line-height:1.1;
+      margin-bottom:1px;
+    }
+    .info-row .label{
+      font-weight:700;
+      color:#404040;
+      width:auto;
+      white-space:nowrap;
+    }
+    .info-row .value{
+      color:#404040;
+      margin-left:5px;
+      white-space:nowrap;
+      font-weight:normal; /* not bold */
+    }
+
+    table.items{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+    table.items th{font-weight:700;text-align:left;padding:8px 6px;border-bottom:1px solid #eee;color:#404040}
+    table.items td{padding:8px 6px;vertical-align:middle;color:#404040}
+    td.amount{text-align:right;font-variant-numeric:tabular-nums}
+
+    .totals{margin-top:8px;font-size:13px;color:#404040}
+    .totals .row{display:flex;justify-content:space-between;padding:6px 4px}
+    .totals .row .label{font-weight:700}
+
+    .verification{text-align:center;margin-top:10px}
+    .verification .title{font-size:13px;font-weight:700;color:#404040}
+    .verification .code{font-size:20px;font-weight:800;margin:6px 0;color:#404040;letter-spacing:1px}
+    .qr{margin:6px auto;text-align:center}
+
+    .print-area{padding:10px;text-align:center;background:#fff}
+    .btn-print{
+      background:#FDEE02;
+      border:none;
+      font-size:13px;
+      font-weight:700;
+      color:#202020;
+      padding:8px 14px;
+      border-radius:3px;
+      cursor:pointer;
+    }
+
+    footer{padding:8px;text-align:center;color:#404040;font-size:12px;margin-top:12px}
+
+    @media(max-width:520px){
+      .info-row .label{width:auto}
+      .receipt{margin:0 10px}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="images/Logo.png" class="logo">
-        <div class="content">
-            <p>Website is under Maintenance..</p>
-            <h1>We're <span>Launching</span> Soon</h1>
-            <div class="launch-time">
-                <div>
-                    <p id="days">00</p>
-                    <span>Days</span>
-                </div>
-                <div>
-                    <p id="hours">00</p>
-                    <span>Hours</span>
-                </div>
-                <div>
-                    <p id="minutes">00</p>
-                    <span>Minutes</span>
-                </div>
-                <div>
-                    <p id="seconds">00</p>
-                    <span>Seconds</span>
-                </div>
-            </div>
-            <button type="button">Learn More <img src="images/triangle.png" alt=""></button>
+  <div class="topbar">
+    <h4><a href="/Home/Index">TAXPAYER RECEIPT VERIFICATION PORTAL</a></h4>
+  </div>
+
+  <div class="page">
+    <div class="receipt" role="article" aria-label="Legal receipt">
+      <div class="panel">
+        <div class="legal-title">*** START OF LEGAL RECEIPT ***</div>
+
+        <div class="logo"><img src="/images/logo.png" alt="TRA logo placeholder"></div>
+
+        <div class="business">WATSON ELECTRONICS LIMITED</div>
+
+        <div class="center-meta"><strong>1603</strong></div>
+
+        <div style="text-align:center;font-size:13px;margin-bottom:8px">
+          <div><strong>MOBILE:</strong> 0749060060</div>
+          <div><strong>TIN:</strong> 164739678</div>
+          <div><strong>VRN:</strong> NOT REGISTERED</div>
+          <div><strong>SERIAL NO:</strong> 10TZ152556</div>
+          <div><strong>UIN:</strong> 09VFDNORMAL-11824345517448463510TZ152556</div>
+          <div><strong>TAX OFFICE:</strong> Kinondoni</div>
         </div>
-        <img src="images/rocket.png" class="rocket">
+
+        <hr class="dotted">
+
+        <div class="info">
+          <div class="info-row"><div class="label">CUSTOMER NAME:</div><div class="value">MJNUAT</div></div>
+          <div class="info-row"><div class="label">CUSTOMER ID TYPE:</div><div class="value">TAXPAYER IDENTIFICATION NUMBER</div></div>
+          <div class="info-row"><div class="label">CUSTOMER ID:</div><div class="value">128796797</div></div>
+          <div class="info-row"><div class="label">CUSTOMER MOBILE:</div><div class="value">0693172918</div></div>
+        </div>
+
+        <hr class="dotted">
+
+        <div class="info">
+          <div class="info-row"><div class="label">RECEIPT NO:</div><div class="value">7</div></div>
+          <div class="info-row"><div class="label">Z NUMBER:</div><div class="value">1/20250924</div></div>
+          <div class="info-row"><div class="label">RECEIPT DATE:</div><div class="value">2025-09-14</div></div>
+          <div class="info-row"><div class="label">RECEIPT TIME:</div><div class="value">13:50:37</div></div>
+        </div>
+
+        <hr class="dotted">
+
+        <div style="margin-top:6px;font-size:15px;font-weight:700;margin-bottom:6px">Purchased Items</div>
+        <table class="items" aria-label="Purchased items">
+          <thead>
+            <tr>
+              <th style="width:58%">Description</th>
+              <th style="width:50%">Qty</th>
+              <th style="width:30%;text-align:right">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Laptops</td>
+              <td>2</td>
+              <td class="amount">1,250,000.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="totals" aria-label="Totals">
+          <div class="row"><div class="label">TOTAL EXCL OF TAX:</div><div>1,250,000.00</div></div>
+          <div class="row"><div class="label">TOTAL TAX:</div><div>0.00</div></div>
+          <div class="row"><div class="label">TOTAL INCL OF TAX:</div><div>1,250,000.00</div></div>
+        </div>
+
+        <hr class="dotted">
+
+        <div class="verification" aria-label="Verification">
+          <div class="title">RECEIPT VERIFICATION CODE</div>
+          <div class="code">304B2E7</div>
+          <div class="qr">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://verify.tra.go.tz/304B2E7_135037&size=120x120" width="120" height="120" alt="QR">
+          </div>
+        </div>
+
+        <hr class="dotted">
+
+        <div style="text-align:center;font-weight:700;font-size:14px;margin-top:6px">*** END OF LEGAL RECEIPT ***</div>
+      </div>
+
+      <div class="print-area">
+        <button class="btn-print" onclick="window.print()">Print Receipt</button>
+      </div>
     </div>
-    <script>
-        var countDownDate = new Date("Jan 01, 2024 00:00:00").getTime();
-        var x = setInterval(function(){
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
-
-            if(distance < 0){
-                clearInterval(x);
-                document.getElementById("days").innerHTML = "00";
-                document.getElementById("hours").innerHTML = "00";
-                document.getElementById("minutes").innerHTML = "00";
-                document.getElementById("seconds").innerHTML = "00";
-            }
-
-        },1000);
-    </script>
+    <footer>© 2025 - TRA Receipt Verification Portal</footer>
+  </div>
 </body>
 </html>
